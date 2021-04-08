@@ -2,15 +2,17 @@
 
 namespace Modules\User\Http\Controllers;
 
+use App\Modules\User\Services\UserService;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 class UserController extends Controller
 {
-
-    public function __construct() {
-        $this->var = $var;
+    private $userService;
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
     }
     /**
      * Display a listing of the resource.
