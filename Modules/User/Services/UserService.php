@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Modules\User\Services;
+namespace Modules\User\Services;
 
 use App\Models\User;
-use App\Modules\User\Repositories\UserRepository;
+use Modules\User\Repositories\UserRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
@@ -22,11 +23,11 @@ class UserService
 
     public function create(Request $request)
     {
+        debugbar()->info($request);
         $user = [
             "name" => $request->name,
             "email" => $request->email,
-            "password" => $request->password,
-            "phone" => $request->phone,
+            "password" => Hash::make($request->password),
             "level" => $request->level,
         ];
 

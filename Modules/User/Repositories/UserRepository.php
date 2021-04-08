@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\User\Repositories;
+namespace Modules\User\Repositories;
 
 use App\Models\User;
 
@@ -27,13 +27,13 @@ class UserRepository
         return $this->user->find($id);
     }
 
-    public function update(array $value,$id)
+    public function update(array $value, $id)
     {
-        return $this->user->where('id',$id)->update($value);
+        return $this->user->where('id', $id)->update($value);
     }
 
     public function delete($id)
     {
-        return $this->user->delete($id);
+        return $this->user->find($id)->delete();
     }
 }

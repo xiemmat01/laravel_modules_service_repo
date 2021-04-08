@@ -2,10 +2,12 @@
 
 namespace Modules\User\Http\Controllers;
 
-use App\Modules\User\Services\UserService;
+use DebugBar\DebugBar;
+use Modules\User\Services\UserService;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\User\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
@@ -21,7 +23,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //return $this->userService->all();
+        $user = $this->userService->all();
+        return view('user::index', compact('user'));
     }
 
     /**
@@ -38,9 +41,10 @@ class UserController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        return $this->userService->create($request);
+        $this->userService->create($request);
+        return redirect('user')->with('success', 'Add new user successful !!');
     }
 
     /**
@@ -69,9 +73,10 @@ class UserController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
-        //
+        $this->userService->update($request, $id);
+        return redirect('user')->with('success', 'Update user successful !!');
     }
 
     /**
@@ -81,6 +86,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->userService->delete($id);
+        return redirect('user')->with('success', 'Delete user successful !!');
     }
 }
