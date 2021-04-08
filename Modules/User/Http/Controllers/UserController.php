@@ -10,6 +10,7 @@ use Illuminate\Routing\Controller;
 class UserController extends Controller
 {
     private $userService;
+
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
@@ -20,7 +21,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('user::index');
+        //return $this->userService->all();
     }
 
     /**

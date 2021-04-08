@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Modules\User\Repositories\UserRepository;
 use Illuminate\Http\Request;
 
-class CreateUserService
+class UserService
 {
     private $userRepository;
 
