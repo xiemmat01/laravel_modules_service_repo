@@ -38,6 +38,8 @@ class UserServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+        $this->app->bind('Modules\User\Repositories\Eloquent\RepositoryInterface', 'Modules\User\Repositories\Eloquent\BaseRepository');
+        $this->app->bind('Modules\User\Repositories\UserRepositoryInterface', 'Modules\User\Repositories\UserRepository');
     }
 
     /**
@@ -51,7 +53,8 @@ class UserServiceProvider extends ServiceProvider
             module_path($this->moduleName, 'Config/config.php') => config_path($this->moduleNameLower . '.php'),
         ], 'config');
         $this->mergeConfigFrom(
-            module_path($this->moduleName, 'Config/config.php'), $this->moduleNameLower
+            module_path($this->moduleName, 'Config/config.php'),
+            $this->moduleNameLower
         );
     }
 

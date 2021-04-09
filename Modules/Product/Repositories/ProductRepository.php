@@ -3,45 +3,44 @@
 namespace Modules\Product\Repositories;
 
 use Modules\Category\Entities\Category;
+use Modules\Category\Repositories\Eloquent\BaseRepository;
 use Modules\Product\Entities\Product;
 
-class ProductRepository
+class ProductRepository extends BaseRepository implements ProductRepositoryInterface
 {
-    private $product;
-    private $category;
-    public function __construct(Product $product, Category $category)
+
+    public function getModel()
     {
-        $this->product = $product;
-        $this->category = $category;
+        return \Modules\Product\Entities\Product::class;
     }
 
     public function getCate()
     {
-        return $this->category->all();
+        return Category::all();
     }
 
     public function all()
     {
-        return $this->product->all();
+        return $this->model->all();
     }
 
-    public function create(array $value)
+    public function create($value = [])
     {
-        return $this->product->insert($value);
+        return $this->model->insert($value);
     }
 
     public function find($id)
     {
-        return $this->product->find($id);
+        return $this->model->find($id);
     }
 
-    public function update(array $value, $id)
+    public function update($value = [], $id)
     {
-        return $this->product->where('id', $id)->update($value);
+        return $this->model->where('id', $id)->update($value);
     }
 
     public function delete($id)
     {
-        return $this->product->find($id)->delete();
+        return $this->model->find($id)->delete();
     }
 }

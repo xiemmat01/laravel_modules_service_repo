@@ -2,38 +2,38 @@
 
 namespace Modules\Category\Repositories;
 
-use Modules\Category\Entities\Category;
+use Modules\Category\Repositories\Eloquent\BaseRepository;
+use Modules\Category\Repositories\CategoryRepositoryInterface;
 
-class CategoryRepository
+class CategoryRepository extends BaseRepository implements CategoryRepositoryInterface
 {
-    private $cate;
-    public function __construct(Category $cate)
+    public function getModel()
     {
-        $this->cate = $cate;
+        return \Modules\Category\Entities\Category::class;
     }
 
     public function all()
     {
-        return $this->cate->all();
+        return $this->model->all();
     }
 
-    public function create(array $value)
+    public function create($value = [])
     {
-        return $this->cate->insert($value);
+        return $this->model->insert($value);
     }
 
     public function find($id)
     {
-        return $this->cate->find($id);
+        return $this->model->find($id);
     }
 
-    public function update(array $value, $id)
+    public function update($value = [], $id)
     {
-        return $this->cate->where('id', $id)->update($value);
+        return $this->model->where('id', $id)->update($value);
     }
 
     public function delete($id)
     {
-        return $this->cate->find($id)->delete();
+        return $this->model->find($id)->delete();
     }
 }

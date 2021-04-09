@@ -3,13 +3,13 @@
 namespace Modules\Product\Services;
 
 use Illuminate\Http\Request;
-use Modules\Product\Repositories\ProductRepository;
+use Modules\Product\Repositories\ProductRepositoryInterface;
 
 class ProductService
 {
     private $productRepository;
 
-    public function __construct(ProductRepository $productRepository)
+    public function __construct(ProductRepositoryInterface $productRepository)
     {
         $this->productRepository = $productRepository;
     }

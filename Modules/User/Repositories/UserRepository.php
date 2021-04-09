@@ -2,15 +2,14 @@
 
 namespace Modules\User\Repositories;
 
-
+use Modules\Category\Repositories\Eloquent\BaseRepository;
 use Modules\User\Entities\User;
 
-class UserRepository
+class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
-    private $user;
-    public function __construct(User $user)
+    public function getModel()
     {
-        $this->user = $user;
+        return User::class;
     }
 
     public function all()
@@ -18,9 +17,9 @@ class UserRepository
         return $this->user->all();
     }
 
-    public function create(array $value)
+    public function create($attributes = [])
     {
-        return $this->user->insert($value);
+        return $this->user->insert($attributes);
     }
 
     public function find($id)
@@ -28,9 +27,9 @@ class UserRepository
         return $this->user->find($id);
     }
 
-    public function update(array $value, $id)
+    public function update($attributes = [], $id)
     {
-        return $this->user->where('id', $id)->update($value);
+        return $this->user->where('id', $id)->update($attributes);
     }
 
     public function delete($id)

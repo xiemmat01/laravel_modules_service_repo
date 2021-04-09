@@ -38,6 +38,8 @@ class CategoryServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+        $this->app->bind('Modules\Category\Repositories\Eloquent\RepositoryInterface', 'Modules\Category\Repositories\Eloquent\BaseRepository');
+        $this->app->bind('Modules\Category\Repositories\CategoryRepositoryInterface', 'Modules\Category\Repositories\CategoryRepository');
     }
 
     /**
@@ -51,7 +53,8 @@ class CategoryServiceProvider extends ServiceProvider
             module_path($this->moduleName, 'Config/config.php') => config_path($this->moduleNameLower . '.php'),
         ], 'config');
         $this->mergeConfigFrom(
-            module_path($this->moduleName, 'Config/config.php'), $this->moduleNameLower
+            module_path($this->moduleName, 'Config/config.php'),
+            $this->moduleNameLower
         );
     }
 

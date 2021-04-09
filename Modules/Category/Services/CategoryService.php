@@ -5,12 +5,13 @@ namespace Modules\Category\Services;
 
 use Illuminate\Http\Request;
 use Modules\Category\Repositories\CategoryRepository;
+use Modules\Category\Repositories\CategoryRepositoryInterface;
 
 class CategoryService
 {
     private $cateRepository;
 
-    public function __construct(CategoryRepository $cateRepository)
+    public function __construct(CategoryRepositoryInterface $cateRepository)
     {
         $this->cateRepository = $cateRepository;
     }
