@@ -23,7 +23,6 @@ class UserService
 
     public function create(Request $request)
     {
-        debugbar()->info($request);
         $user = [
             "name" => $request->name,
             "email" => $request->email,
@@ -42,11 +41,24 @@ class UserService
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name'       => 'required',
+            'email'      => 'required|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix',
+            'password'   => 'required',
+            'repassword' => 'required|same:password',
+            'level'      => 'required',
+        ], [
+            'name.required'     => 'Please Enter Your Name',
+            'password.required' => 'Please Enter Your Password',
+            'repassword.same'   => 'RePassword not the same Password',
+            'email.required'    => 'Please Enter Your Email',
+            'email.regex'       => 'Email Error Syntax',
+            'level.required'    => 'Please choose level',
+        ]);
         $user = [
             "name" => $request->name,
             "email" => $request->email,
-            "password" => $request->password,
-            "phone" => $request->phone,
+            "password" => Hash::make($request->password),
             "level" => $request->level,
         ];
 

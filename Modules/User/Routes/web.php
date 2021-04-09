@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('user')->group(function () {
     Route::get('/', 'UserController@index');
-    //Route::get('add', 'UserController@create');
     Route::post('/', 'UserController@store');
     Route::get('/{id}', 'UserController@destroy');
+    Route::get('edit/{id}', 'UserController@edit');
+    Route::post('edit/{id}', 'UserController@update');
 });

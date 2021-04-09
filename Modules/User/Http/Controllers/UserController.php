@@ -64,7 +64,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        return view('user::edit');
+        $userById = $this->userService->find($id);
+        return view('user::edit', compact('userById'));
     }
 
     /**
@@ -73,7 +74,7 @@ class UserController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(UserRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $this->userService->update($request, $id);
         return redirect('user')->with('success', 'Update user successful !!');
