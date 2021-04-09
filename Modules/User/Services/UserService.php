@@ -3,15 +3,15 @@
 namespace Modules\User\Services;
 
 use App\Models\User;
-use Modules\User\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Modules\User\Repositories\UserRepositoryInterface;
 
 class UserService
 {
     private $userRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepositoryInterface $userRepository)
     {
         $this->userRepository = $userRepository;
     }
