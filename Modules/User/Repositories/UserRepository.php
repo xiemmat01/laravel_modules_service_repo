@@ -14,26 +14,26 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
     public function all()
     {
-        return $this->user->all();
+        return $this->model->all();
     }
 
     public function create($attributes = [])
     {
-        return $this->user->insert($attributes);
+        return $this->model->insert($attributes);
     }
 
     public function find($id)
     {
-        return $this->user->find($id);
+        return $this->model->find($id);
     }
 
     public function update($attributes = [], $id)
     {
-        return $this->user->where('id', $id)->update($attributes);
+        return $this->model->where('id', $id)->update($attributes);
     }
 
     public function delete($id)
     {
-        return $this->user->find($id)->delete();
+        return $this->model->find($id)->delete();
     }
 }

@@ -4,7 +4,6 @@ namespace Modules\Category\Services;
 
 
 use Illuminate\Http\Request;
-use Modules\Category\Repositories\CategoryRepository;
 use Modules\Category\Repositories\CategoryRepositoryInterface;
 
 class CategoryService
@@ -56,6 +55,6 @@ class CategoryService
 
     public function delete($id)
     {
-        return $this->userRepository->delete($id);
+        return $this->cateRepository->delete($id);
     }
 }

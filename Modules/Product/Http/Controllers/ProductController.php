@@ -63,8 +63,10 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+        $cate = $this->productService->getCate();
         $productById = $this->productService->find($id);
-        return view('product::edit', compact('productById'));
+        debugbar()->info($productById);
+        return view('product::edit', compact('productById', 'cate'));
     }
 
     /**
@@ -75,6 +77,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->productService->update($request, $id);
         return redirect('product')->with('success', 'Update category successful !!');
     }
 
