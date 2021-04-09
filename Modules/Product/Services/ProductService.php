@@ -3,7 +3,6 @@
 namespace Modules\Product\Services;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Modules\Product\Repositories\ProductRepository;
 
 class ProductService
@@ -15,6 +14,11 @@ class ProductService
         $this->productRepository = $productRepository;
     }
 
+    public function getCate()
+    {
+        return $this->productRepository->getCate();
+    }
+
     public function all()
     {
         return $this->productRepository->all();
@@ -22,14 +26,18 @@ class ProductService
 
     public function create(Request $request)
     {
-        $user = [
-            "name" => $request->name,
-            "email" => $request->email,
-            "password" => Hash::make($request->password),
-            "level" => $request->level,
+        $product = [
+            "name"        => $request->name,
+            "alias"       => changeTitle($request->name),
+            'price'       => $request->price,
+            'image'       => $request->image,
+            'keywords'    => $request->keywords,
+            'description' => $request->description,
+            'user_id'     => 1,
+            'cate_id'     => $request->listCate,
         ];
 
-        return $this->productRepository->create($user);
+        return $this->productRepository->create($product);
     }
 
 
@@ -40,26 +48,18 @@ class ProductService
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name'       => 'required',
-            'email'      => 'required|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix',
-            'password'   => 'required',
-            'repassword' => 'required|same:password',
-            'level'      => 'required',
-        ], [
-            'name.required'     => 'Please Enter Your Name',
-            'password.required' => 'Please Enter Your Password',
-            'repassword.same'   => 'RePassword not the same Password',
-            'email.required'    => 'Please Enter Your Email',
-            'email.regex'       => 'Email Error Syntax',
-            'level.required'    => 'Please choose level',
-        ]);
+
         $product = [
-            "name" => $request->name,
-            "email" => $request->email,
-            "password" => Hash::make($request->password),
-            "level" => $request->level,
+            "name"        => $request->name,
+            "alias"       => changeTitle($request->name),
+            'price'       => $request->price,
+            'image'       => $request->image,
+            'keywords'    => $request->keywords,
+            'description' => $request->description,
+            'user_id'     => 1,
+            'cate_id'     => $request->listCate,
         ];
+
 
         return $this->productRepository->update($product, $id);
     }

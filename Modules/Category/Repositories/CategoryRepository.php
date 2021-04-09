@@ -2,7 +2,7 @@
 
 namespace Modules\Category\Repositories;
 
-use App\Models\Category;
+use Modules\Category\Entities\Category;
 
 class CategoryRepository
 {

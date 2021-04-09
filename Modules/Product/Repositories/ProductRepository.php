@@ -2,14 +2,22 @@
 
 namespace Modules\Product\Repositories;
 
-use App\Models\Product;
+use Modules\Category\Entities\Category;
+use Modules\Product\Entities\Product;
 
 class ProductRepository
 {
     private $product;
-    public function __construct(Product $product)
+    private $category;
+    public function __construct(Product $product, Category $category)
     {
         $this->product = $product;
+        $this->category = $category;
+    }
+
+    public function getCate()
+    {
+        return $this->category->all();
     }
 
     public function all()

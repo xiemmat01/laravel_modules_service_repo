@@ -5,16 +5,25 @@ namespace Modules\Product\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Product\Http\Requests\ProductRequest;
+use Modules\Product\Services\ProductService;
 
 class ProductController extends Controller
 {
+    private $productService;
+    public function __construct(ProductService $productService)
+    {
+        $this->productService = $productService;
+    }
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
     public function index()
     {
-        return view('product::index');
+        $product = $this->productService->all();
+        $cate = $this->productService->getCate();
+        return view('product::index', compact('product', 'cate'));
     }
 
     /**
@@ -31,9 +40,10 @@ class ProductController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        //
+        $this->productService->create($request);
+        return redirect('product')->with('success', 'Add new category successful !!');
     }
 
     /**
@@ -53,7 +63,8 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        return view('product::edit');
+        $productById = $this->productService->find($id);
+        return view('product::edit', compact('productById'));
     }
 
     /**
@@ -64,7 +75,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return redirect('product')->with('success', 'Update category successful !!');
     }
 
     /**
@@ -74,6 +85,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->productService->delete($id);
+        return redirect('product')->with('success', 'Delete category successful !!');
     }
 }

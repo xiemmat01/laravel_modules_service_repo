@@ -2,7 +2,8 @@
 
 namespace Modules\User\Repositories;
 
-use App\Models\User;
+
+use Modules\User\Entities\User;
 
 class UserRepository
 {

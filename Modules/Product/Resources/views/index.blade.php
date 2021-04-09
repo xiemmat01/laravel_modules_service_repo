@@ -32,41 +32,29 @@
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Email</th>
-                        <th>Level</th>
+                        <th>Price</th>
+                        <th>Alias</th>
+                        <th>Keywords</th>
+                        <th>Description</th>
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Level</th>
-                        <th>Action</th>
-                    </tr>
-                </tfoot>
                 <tbody>
-                    {{-- @foreach ($user as $item)
+                    @foreach ($product as $item)
                     <tr>
                         <td>{!! $item->name !!}</td>
-                        <td>{!! $item->email !!}</td>
+                        <td>{!! number_format($item->price,0,",",".") !!}</td>
+                        <td>{!! $item->alias !!}</td>
+                        <td>{!! $item->keywords !!}</td>
+                        <td>{!! $item->description !!}</td>
                         <td>
-                            @if ($item->level == 1)
-                            Admin
-                            @elseif ($item->level == 2)
-                            Member
-                            @else
-                            Super Admin
-                            @endif
-                        </td>
-                        <td>
-                            <a href="{!!  url('user/edit', $item->id) !!}" class="btn btn-primary .edit">Edit</a>
-                            <a href="{!! url('user', $item->id) !!}" class="btn btn-danger"
-                                onclick="return messages('Bạn có muốn xóa User này')">
+                            <a href="{!!  url('product/edit', $item->id) !!}" class="btn btn-primary .edit">Edit</a>
+                            <a href="{!! url('product', $item->id) !!}" class="btn btn-danger"
+                                onclick="return messages('Bạn có muốn xóa Product này')">
                                 Delete</a>
                         </td>
                     </tr>
-                    @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -79,44 +67,48 @@
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header justify-content-center">
-                <h4 class="modal-title ">ADD NEW USER</h4>
+                <h4 class="modal-title ">ADD NEW PRODUCT</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <!-- Modal body -->
-            <form action="{!! url('user') !!}" method="post">
+            <form action="{!! url('product') !!}" method="post">
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">
+                        <label class="col-form-label">Category Type</label>
+                        <select class="form-control" name="listCate" id="">
+                            <option value="">Please Choose Category</option>
+                            @php
+                            cate_parent($cate);
+                            @endphp
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label class="col-form-label" for="name">Name</label>
                         <input class="form-control" type="text" name="name" class="form-control"
-                            placeholder="Please enter name" value="" required>
+                            placeholder="Please enter name" value="{{old('name')}}" required>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label" for="email">Email</label>
-                        <input type="email" name="email" class="form-control" placeholder="Please enter email" value=""
-                            required>
+                        <label class="col-form-label">Price</label>
+                        <input type="text" name="price" class="form-control" placeholder="Please enter Price"
+                            value="{{old('price')}}" required>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label" for="password">Password</label>
-                        <input type="password" name="password" class="form-control" placeholder="Please enter password"
-                            required value="">
+                        <label class="col-form-label">Url Image</label>
+                        <input type="text" name="image" class="form-control" placeholder="Please enter Url Image"
+                            required value="https://place-hold.it/300x300">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label" for="repassword">Re-password</label>
-                        <input type="password" name="repassword" class="form-control"
-                            placeholder="Please enter re-password" value="" required>
+                        <label class="col-form-label">Keywords</label>
+                        <input type="text" name="keywords" class="form-control" placeholder="Please enter Keywords"
+                            value="{{old('keywords')}}" required>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <div class="mr-1 ml-2">
-                            <input type="radio" name="level" id="level0" class="form-check-input" value="1">
-                            <label class="form-check-label" for="level0">Admin</label>
-                        </div>
-                        <div class="ml-1">
-                            <input type="radio" name="level" id="level3" class="form-check-input" value="2">
-                            <label class="form-check-label" for="level3">Member</label>
-                        </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Description</label>
+                        <input type="text" name="description" class="form-control"
+                            placeholder="Please enter Description" value="{{old('description')}}">
+                        {{-- {{old('description') == null ? null : old('description')}} --}}
                     </div>
-
                 </div>
                 <!-- Modal footer -->
                 <div class="modal-footer justify-content-center">
@@ -127,5 +119,4 @@
         </div>
     </div>
 </div>
-
 @endsection

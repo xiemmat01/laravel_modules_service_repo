@@ -62,8 +62,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $cate = $this->categoryService->find($id);
-        return view('category::edit', compact('cate'));
+        $cate = $this->categoryService->all();
+        $cateById = $this->categoryService->find($id);
+        return view('category::edit', compact('cate', 'cateById'));
     }
 
     /**

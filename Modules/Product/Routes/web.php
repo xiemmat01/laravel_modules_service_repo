@@ -11,6 +11,12 @@
 |
 */
 
-Route::prefix('product')->group(function() {
+use Illuminate\Support\Facades\Route;
+
+Route::prefix('product')->group(function () {
     Route::get('/', 'ProductController@index');
+    Route::post('/', 'ProductController@store');
+    Route::get('/{id}', 'ProductController@destroy');
+    Route::get('edit/{id}', 'ProductController@edit');
+    Route::post('edit/{id}', 'ProductController@update');
 });

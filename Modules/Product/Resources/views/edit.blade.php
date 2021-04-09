@@ -9,61 +9,55 @@
                 <h4 class="modal-title">EDIT USER</h4>
             </div>
             <!-- Modal body -->
-            <form action="{{ url('user/edit',$userById->id) }}" method="post">
+            <form action="{{ url('product/edit',$productById->id) }}" method="post">
                 @csrf
-               
+                @if (count($errors) > 0)
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" id="alert">
+                    @foreach ($errors->all() as $error)
+                    <p>{{ $error }}</p>
+                    @endforeach
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @endif
+
                 <div class="modal-body">
-                    @if (count($errors) > 0)
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert" id="alert">
-                        @foreach ($errors->all() as $error)
-                        <p>{{ $error }}</p>
-                        @endforeach
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                    <div class="form-group">
+                        <label class="col-form-label">Category Type</label>
+                        <select class="form-control" name="listCate" id="">
+                            <option value="">Please Choose Category</option>
+                            {{-- @php
+                            cate_parent($cate);
+                            @endphp --}}
+                        </select>
                     </div>
-                    @endif
                     <div class="form-group">
                         <label class="col-form-label" for="name">Name</label>
-                        <input class="form-control" type="text" name="name" id="name" class="form-control"
-                            placeholder="Please enter name" value="{{ $userById->name }}" required>
+                        <input class="form-control" type="text" name="name" class="form-control"
+                            placeholder="Please enter name" value="{{old('name')}}" required>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label" for="email">Email</label>
-                        <input type="email" name="email" id="email" class="form-control"
-                            placeholder="Please enter email" value=" {{ $userById->email }} " required>
+                        <label class="col-form-label">Price</label>
+                        <input type="text" name="price" class="form-control" placeholder="Please enter Price"
+                            value="{{old('price')}}" required>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label" for="password">Password</label>
-                        <input type="password" name="password" id="password" class="form-control"
-                            placeholder="Please enter password" value="" required>
+                        <label class="col-form-label">Url Image</label>
+                        <input type="text" name="image" class="form-control" placeholder="Please enter Url Image"
+                            required value="https://place-hold.it/300x300">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label" for="repassword">Re-password</label>
-                        <input type="password" name="repassword" id="repassword" class="form-control"
-                            placeholder="Please enter re-password" value="" required>
+                        <label class="col-form-label">Keywords</label>
+                        <input type="text" name="keywords" class="form-control" placeholder="Please enter Keywords"
+                            value="{{old('keywords')}}" required>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <div class="mr-1 ml-2">
-                            @if ($userById->level == 1)
-                            <input type="radio" name="level" id="level1" class="form-check-input" value="1" checked>
-                            <label class="form-check-label" for="level1">Admin</label>
-                            <input type="radio" name="level" id="level2" class="form-check-input" value="2">
-                            <label class="form-check-label" for="level2">Member</label>
-                            @elseif ($userById->level == 2)
-                            <input type="radio" name="level" id="level1" class="form-check-input" value="1">
-                            <label class="form-check-label" for="level1">Admin</label>
-                            <input type="radio" name="level" id="level2" class="form-check-input" value="2" checked>
-                            <label class="form-check-label" for="level2">Member</label>
-                            @else
-                            <input type="radio" name="level" id="level1" class="form-check-input" value="1" checked>
-                            <label class="form-check-label" for="level1">Admin</label>
-                            <input type="radio" name="level" id="level2" class="form-check-input" value="2">
-                            <label class="form-check-label" for="level2">Member</label>
-                            @endif
-                        </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Description</label>
+                        <input type="text" name="description" class="form-control"
+                            placeholder="Please enter Description" value="{{old('description')}}">
+                        {{-- {{old('description') == null ? null : old('description')}} --}}
                     </div>
-
                 </div>
                 <!-- Modal footer -->
                 <div class="modal-footer">

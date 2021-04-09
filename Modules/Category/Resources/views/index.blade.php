@@ -35,6 +35,7 @@
                         <th>Alias</th>
                         <th>Keywords</th>
                         <th>Description</th>
+                        <th>Order</th>
                         <th>Parent</th>
                         <th>Action</th>
                     </tr>
@@ -46,6 +47,7 @@
                         <td>{!! $item->alias !!}</td>
                         <td>{{$item->keywords}}</td>
                         <td>{{$item->description}}</td>
+                        <td>{{$item->order}}</td>
                         <td>{{$item->parent_id}}</td>
                         <td>
                             <a href="{!!  url('category/edit', $item->id) !!}" class="btn btn-primary .edit">Edit</a>
@@ -75,7 +77,7 @@
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="col-form-label" for="name">Category Type</label>
+                        <label class="col-form-label">Category Type</label>
                         <select class="form-control" name="listCate" id="">
                             <option value="0">Please Choose Category</option>
                             @php
@@ -84,22 +86,22 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label" for="name">Name</label>
+                        <label class="col-form-label">Name</label>
                         <input class="form-control" type="text" name="name" class="form-control"
                             placeholder="Please enter name" value="" required>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label" for="email">Order</label>
+                        <label class="col-form-label">Order</label>
                         <input type="text" name="order" class="form-control" placeholder="Please enter order" value=""
                             required>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label" for="password">Keywords</label>
+                        <label class="col-form-label">Keywords</label>
                         <input type="text" name="keywords" class="form-control" placeholder="Please enter keywords"
                             value="">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label" for="repassword">Description</label>
+                        <label class="col-form-label">Description</label>
                         <textarea type="text" name="description" class="form-control"
                             placeholder="Please enter description" value=""></textarea>
                     </div>
